@@ -1,45 +1,43 @@
-# SQL Practice: Creating and Using Views - Task 7
+# SQL Practice: Stored Procedures & Functions - Task 8
 
-This project was completed as part of the Elevate Labs Internship program. This task focuses on creating and using SQL Views to simplify complex queries and enhance database security.
+This project was completed as part of the Elevate Labs Internship program. This task covers the creation and use of reusable SQL code blocks: Stored Procedures and Functions.
+
+## Important Prerequisite
+
+This task **requires MySQL or a similar database system (like PostgreSQL or SQL Server)**. The features demonstrated here are **not available in SQLite**.
+
+---
 
 ## Objective
 
-The objective is to understand how to encapsulate complex `SELECT` logic into a reusable, virtual table known as a View. This demonstrates the concepts of data abstraction and reusable SQL logic.
+The objective is to learn how to modularize complex SQL logic into named, reusable routines that can be stored in the database. This improves code organization, reusability, and security.
 
 ---
 
-## Database Schema
+## Key Concepts Practiced 📜
 
-This task is built upon the three-table schema (`authors`, `books`, `sales`) used in previous exercises. This schema is suitable for creating meaningful views that involve joins and aggregations.
+This task focuses on the two main types of stored routines in SQL.
 
----
+* **Stored Procedure**:
+    * A pre-compiled block of SQL statements that can be executed as a single unit.
+    * Invoked using the `CALL` statement.
+    * Can accept input (`IN`), output (`OUT`), and input/output (`INOUT`) parameters.
+    * Ideal for encapsulating business logic, performing data validation, or running scheduled tasks.
 
-## Key Concepts Practiced 👓
+* **Function**:
+    * A routine that performs a calculation and **must return a single value**.
+    * Can be used directly within SQL statements (e.g., in a `SELECT` list or `WHERE` clause), much like built-in functions like `SUM()` or `CONCAT()`.
+    * Ideal for creating custom formulas or calculations that need to be used repeatedly.
 
-This task covers the definition and application of SQL Views.
+* **Key Differences**: The main distinction is that a function is designed to return a single value to be used in a query, whereas a procedure is designed to execute a set of actions.
 
-* **What is a View?**
-    A **View** is a stored `SELECT` query that is given a name and can be treated like a virtual table. It does not store data itself; instead, it dynamically generates its result set from the data in the underlying base tables whenever it is queried.
-
-* **`CREATE VIEW` Syntax**
-    The basic syntax for creating a view is straightforward:
-    ```sql
-    CREATE VIEW view_name AS
-    SELECT column1, column2, ...
-    FROM table_name
-    WHERE condition;
-    ```
-
-* **Primary Benefits of Using Views:**
-    * **Simplicity & Data Abstraction**: Views hide the complexity of underlying database schema and long, complex queries. A user can interact with a simple view without needing to understand the complex joins or calculations involved.
-    * **Security**: Views can be used to restrict data access. You can create a view that shows only specific rows or columns, and then grant users permission to the view instead of the base tables.
-    * **Consistency**: By storing complex logic in a view, you ensure that anyone querying that view uses the exact same logic, leading to more consistent and reliable reporting.
+* **`DELIMITER`**: In MySQL, the `DELIMITER` command is used to change the character that signifies the end of a statement. This is necessary when creating routines because they can contain multiple statements that end with a semicolon (`;`). By changing the delimiter to `$$`, we can define the entire routine as a single block.
 
 ---
 
 ## How to Use
 
-1.  Open the task's SQL script in a compatible database tool (DB Browser for SQLite, MySQL Workbench).
+1.  Open the task's SQL script in **MySQL Workbench**.
 2.  Execute the **SETUP** portion of the script to create the base tables and data.
-3.  Run the `CREATE VIEW` statements. The views will be saved in the database schema.
-4.  Execute the final `SELECT` queries that reference the views to see how a complex operation can be simplified to a one-line query.
+3.  Execute the `CREATE PROCEDURE` and `CREATE FUNCTION` blocks. The routines will be saved in the database schema (look for "Stored Procedures" and "Functions" in the navigator).
+4.  Run the `CALL` statement and the final `SELECT` query to see how to use the created procedure and function.
